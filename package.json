@@ -1,0 +1,17 @@
+{
+  "name": "golftripos-destination-directory-prototype",
+  "version": "0.1.0",
+  "description": "Standalone prototype of the GolfTripOS destination browse & course directory (W5): Explore grid -> Destination Detail -> Course Detail, seeded with real researched course data.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

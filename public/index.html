@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GolfTripOS — Explore</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <button id="backBtn" class="back-btn" hidden aria-label="Back">&larr;</button>
+        <h1 id="screenTitle">Explore</h1>
+      </div>
+    </header>
+
+    <main id="screen" class="screen"></main>
+
+    <nav class="tabbar">
+      <div class="tab active" data-tab="explore">
+        <span class="tab-icon">&#9906;</span>
+        <span>Explore</span>
+      </div>
+      <div class="tab" data-tab="trips">
+        <span class="tab-icon">&#128197;</span>
+        <span>Trips</span>
+      </div>
+      <div class="tab" data-tab="assistant">
+        <span class="tab-icon">&#9998;</span>
+        <span>Assistant</span>
+      </div>
+      <div class="tab" data-tab="profile">
+        <span class="tab-icon">&#128100;</span>
+        <span>Profile</span>
+      </div>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

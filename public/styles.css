@@ -1,0 +1,548 @@
+/* GolfTripOS Brand Guidelines: Inter, Primary Blue #2D6CDF (primary actions
+   / key highlights only), Off White / Charcoal / Warm Gray for everything
+   else. Mobile-first, single-column, 44px touch targets. */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --primary-blue: #2d6cdf;
+  --off-white: #faf9f6;
+  --charcoal: #22262b;
+  --warm-gray: #6b6560;
+  --warm-gray-light: #e8e4de;
+  --border: #ded8cf;
+  --green: #2f8f5b;
+  --white: #ffffff;
+  --radius: 12px;
+  --max-width: 480px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--warm-gray-light);
+  color: var(--charcoal);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.app {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--off-white);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+}
+
+.topbar h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.back-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--warm-gray-light);
+  color: var(--charcoal);
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.back-btn:active {
+  background: var(--border);
+}
+
+/* ---------- Screen / scroll area ---------- */
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 16px 24px;
+}
+
+/* ---------- Search + filter row ---------- */
+.search-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--white);
+  color: var(--charcoal);
+}
+
+.search-input:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: -1px;
+}
+
+.chip-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chip-row::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--warm-gray);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chip.active {
+  background: var(--primary-blue);
+  border-color: var(--primary-blue);
+  color: var(--white);
+}
+
+/* ---------- Destination grid (Explore) ---------- */
+.dest-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.dest-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.dest-card:active {
+  transform: scale(0.98);
+}
+
+.dest-card.disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.dest-card-media {
+  height: 84px;
+  background: linear-gradient(135deg, var(--primary-blue), #1d4fa8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.dest-card.disabled .dest-card-media {
+  background: linear-gradient(135deg, var(--warm-gray), #524d49);
+}
+
+.dest-card-body {
+  padding: 10px 12px 12px;
+}
+
+.dest-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 2px;
+}
+
+.dest-card-meta {
+  font-size: 12px;
+  color: var(--warm-gray);
+  margin: 0;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+.badge-live {
+  background: rgba(47, 143, 91, 0.12);
+  color: var(--green);
+}
+
+.badge-soon {
+  background: var(--warm-gray-light);
+  color: var(--warm-gray);
+}
+
+/* ---------- Destination Detail ---------- */
+.dest-hero {
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--primary-blue), #1d4fa8);
+  color: var(--white);
+  padding: 20px 16px;
+  margin-bottom: 16px;
+}
+
+.dest-hero h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.dest-hero .tagline {
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 0 0 10px;
+}
+
+.dest-hero .hero-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: 0.95;
+  margin: 0;
+}
+
+.section-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.section-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--warm-gray);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.section-tab.active {
+  color: var(--primary-blue);
+  border-bottom-color: var(--primary-blue);
+}
+
+.coming-soon {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--warm-gray);
+}
+
+.coming-soon .icon {
+  font-size: 30px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.coming-soon p {
+  font-size: 13px;
+  margin: 4px 0 0;
+}
+
+/* ---------- Course list ---------- */
+.course-card {
+  display: flex;
+  gap: 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.course-card:active {
+  background: var(--warm-gray-light);
+}
+
+.course-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--warm-gray-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--warm-gray);
+}
+
+.course-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.course-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 0 0 3px;
+  line-height: 1.3;
+}
+
+.course-meta {
+  font-size: 12px;
+  color: var(--warm-gray);
+  margin: 0 0 4px;
+}
+
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  font-size: 10.5px;
+  background: var(--warm-gray-light);
+  color: var(--charcoal);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.tag.type {
+  background: rgba(45, 108, 223, 0.1);
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px 16px;
+  color: var(--warm-gray);
+  font-size: 13px;
+}
+
+/* ---------- Course Detail ---------- */
+.course-hero-img {
+  width: 100%;
+  height: 180px;
+  border-radius: var(--radius);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--warm-gray-light);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: var(--warm-gray);
+}
+
+.course-detail-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.course-detail-area {
+  font-size: 13px;
+  color: var(--warm-gray);
+  margin: 0 0 10px;
+}
+
+.detail-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.spec {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.spec-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--warm-gray);
+  margin: 0 0 2px;
+}
+
+.spec-value {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.spec-value.muted {
+  font-weight: 400;
+  color: var(--warm-gray);
+  font-style: italic;
+}
+
+.amenity-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.contact-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 90px;
+  font-size: 13.5px;
+}
+
+.contact-row a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+/* ---------- Sticky bottom action bar ---------- */
+.sticky-cta {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--off-white);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: 10px;
+  border: none;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.btn-primary {
+  background: var(--primary-blue);
+  color: var(--white);
+}
+
+.btn-primary:active {
+  background: #1d4fa8;
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--charcoal);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:active {
+  background: var(--warm-gray-light);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Tab bar ---------- */
+.tabbar {
+  display: flex;
+  border-top: 1px solid var(--border);
+  background: var(--off-white);
+  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--warm-gray);
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+.tab-icon {
+  font-size: 18px;
+}
+
+.tab.active {
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--charcoal);
+  color: var(--white);
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  z-index: 100;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Loading ---------- */
+.loading {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--warm-gray);
+  font-size: 13px;
+}

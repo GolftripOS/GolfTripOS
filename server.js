@@ -7,6 +7,7 @@ import {
   getCoursesForDestination,
   getCourseBySlug,
 } from "./destinations.js";
+import { getMarketProfile } from "./market-profiles.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -30,7 +31,7 @@ app.get("/api/destinations", (req, res) => {
   res.json({ destinations: results });
 });
 
-// Destination Detail: courses (+ lodging/dining stubs) for one destination.
+// Destination Detail: market overview + courses (+ lodging/dining stubs).
 app.get("/api/destinations/:slug", (req, res) => {
   const destination = getDestinationBySlug(req.params.slug);
   if (!destination) {
@@ -47,7 +48,8 @@ app.get("/api/destinations/:slug", (req, res) => {
   const allCourses = getCoursesForDestination(destination.slug);
   const areas = [...new Set(allCourses.map((c) => c.area).filter(Boolean))].sort();
   const courseTypes = [...new Set(allCourses.map((c) => c.courseType).filter(Boolean))].sort();
-  res.json({ destination, courses, filters: { areas, courseTypes } });
+  const profile = getMarketProfile(destination.slug);
+  res.json({ destination, profile, courses, filters: { areas, courseTypes } });
 });
 
 // Course Detail.

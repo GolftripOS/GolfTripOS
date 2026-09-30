@@ -1,5 +1,10 @@
 // Destination + course directory data for the W5 prototype.
 //
+// LAUNCH SCOPE (decided 2026-09-30): GolfTripOS launches as a Myrtle
+// Beach-only app. The other destinations stay in the list as "future
+// markets" and get built by copying the Myrtle Beach template once it's
+// perfected (W13 rollout task in Notion).
+//
 // Myrtle Beach is the one "live" destination, seeded with the 15 pilot-batch
 // course records already researched in the "Myrtle Beach Golf Courses"
 // Notion database (W4 pilot). Every other destination is a stub so the
@@ -28,7 +33,7 @@ export const DESTINATIONS = [
     name: "Hilton Head Island, SC",
     state: "South Carolina",
     tagline: "Lowcountry resort golf, Harbour Town and beyond",
-    heroDescription: "Destination profile research not started yet (W4/W5).",
+    heroDescription: "Future market: planned after the Myrtle Beach launch.",
     status: "coming_soon",
     courseCount: 0,
   },
@@ -37,7 +42,7 @@ export const DESTINATIONS = [
     name: "Pinehurst, NC",
     state: "North Carolina",
     tagline: "The Cradle of American Golf",
-    heroDescription: "Destination profile research not started yet (W4/W5).",
+    heroDescription: "Future market: planned after the Myrtle Beach launch.",
     status: "coming_soon",
     courseCount: 0,
   },
@@ -46,7 +51,7 @@ export const DESTINATIONS = [
     name: "Scottsdale, AZ",
     state: "Arizona",
     tagline: "Desert target golf and resort clusters",
-    heroDescription: "Destination profile research not started yet (W6).",
+    heroDescription: "Future market: planned after the Myrtle Beach launch.",
     status: "coming_soon",
     courseCount: 0,
   },
@@ -55,7 +60,7 @@ export const DESTINATIONS = [
     name: "Orlando, FL",
     state: "Florida",
     tagline: "Champions Gate, Reunion, and central Florida resort golf",
-    heroDescription: "Destination profile research not started yet (W6).",
+    heroDescription: "Future market: planned after the Myrtle Beach launch.",
     status: "coming_soon",
     courseCount: 0,
   },
@@ -64,7 +69,7 @@ export const DESTINATIONS = [
     name: "Phoenix / Mesa, AZ",
     state: "Arizona",
     tagline: "Spring-training season golf hub",
-    heroDescription: "Destination profile research not started yet (W6).",
+    heroDescription: "Future market: planned after the Myrtle Beach launch.",
     status: "coming_soon",
     courseCount: 0,
   },

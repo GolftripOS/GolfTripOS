@@ -10,7 +10,8 @@ const titleEl = document.getElementById("screenTitle");
 const backBtn = document.getElementById("backBtn");
 const toastEl = document.getElementById("toast");
 
-let destTab = "courses"; // "courses" | "lodging" | "dining" on Destination Detail
+let destTab = "overview"; // "overview" | "courses" | "lodging" | "dining" on Destination Detail
+let destProfile = null;
 let destFilters = { area: "", courseType: "", q: "" };
 
 function showToast(message) {
@@ -123,7 +124,7 @@ async function loadExploreGrid() {
             <p class="dest-card-name">${escapeHtml(d.name)}</p>
             <p class="dest-card-meta">${escapeHtml(d.tagline)}</p>
             <span class="badge ${isLive ? "badge-live" : "badge-soon"}">
-              ${isLive ? `${d.courseCount} courses` : "Coming soon"}
+              ${isLive ? `${d.courseCount} courses` : "Future market"}
             </span>
           </div>
         </div>
@@ -136,7 +137,7 @@ async function loadExploreGrid() {
       if (card.dataset.live === "true") {
         location.hash = `#/destination/${card.dataset.slug}`;
       } else {
-        showToast("Destination research not started yet (see W4/W5/W6 in Notion).");
+        showToast("GolfTripOS is launching in Myrtle Beach first. This market comes after launch.");
       }
     });
   });
@@ -154,9 +155,10 @@ async function renderDestination(slug) {
     return;
   }
   const { destination } = data;
+  destProfile = data.profile || null;
   titleEl.textContent = destination.name;
   destFilters = { area: "", courseType: "", q: "" };
-  destTab = "courses";
+  destTab = destProfile ? "overview" : "courses";
   paintDestination(destination);
 }
 
@@ -168,6 +170,7 @@ function paintDestination(destination) {
       <p class="hero-desc">${escapeHtml(destination.heroDescription)}</p>
     </div>
     <div class="section-tabs">
+      ${destProfile ? `<div class="section-tab ${destTab === "overview" ? "active" : ""}" data-tab="overview">Overview</div>` : ""}
       <div class="section-tab ${destTab === "courses" ? "active" : ""}" data-tab="courses">Courses</div>
       <div class="section-tab ${destTab === "lodging" ? "active" : ""}" data-tab="lodging">Lodging</div>
       <div class="section-tab ${destTab === "dining" ? "active" : ""}" data-tab="dining">Dining</div>
@@ -183,7 +186,9 @@ function paintDestination(destination) {
   });
 
   const body = document.getElementById("destSectionBody");
-  if (destTab === "courses") {
+  if (destTab === "overview" && destProfile) {
+    body.innerHTML = renderOverview(destProfile);
+  } else if (destTab === "courses") {
     body.innerHTML = `
       <div class="search-row">
         <input class="search-input" id="courseSearch" type="text" placeholder="Search courses..." />
@@ -206,6 +211,81 @@ function paintDestination(destination) {
       </div>
     `;
   }
+}
+
+// Market overview (W4 Myrtle Beach market profile): size, airports, vibe by
+// zone, who goes there, and seasonality.
+function renderOverview(p) {
+  const stats = p.atAGlance
+    .map((s) => `<div class="stat"><p class="stat-value">${escapeHtml(s.value)}</p><p class="stat-label">${escapeHtml(s.label)}</p></div>`)
+    .join("");
+  const zones = p.zones
+    .map(
+      (z) => `
+        <div class="zone-card zone-${escapeHtml(z.key)}">
+          <div class="zone-head"><strong>${escapeHtml(z.name)}</strong><span class="tag">${escapeHtml(z.vibe)}</span></div>
+          <p class="zone-towns">${escapeHtml(z.towns)}</p>
+          <p>${escapeHtml(z.description)}</p>
+        </div>`
+    )
+    .join("");
+  const airports = p.airports
+    .map(
+      (a) => `
+        <div class="airport-row ${a.primary ? "primary" : ""}">
+          <div class="airport-code">${escapeHtml(a.code)}</div>
+          <div class="airport-info">
+            <p class="airport-name">${escapeHtml(a.name)} <span class="airport-drive">${escapeHtml(a.drive)}</span></p>
+            <p class="airport-notes">${escapeHtml(a.notes)}</p>
+          </div>
+        </div>`
+    )
+    .join("");
+  const seasons = p.seasons
+    .map(
+      (s) => `
+        <div class="season-card">
+          <p class="season-name">${escapeHtml(s.name)} <span>${escapeHtml(s.months)}</span></p>
+          <p><strong>Demand:</strong> ${escapeHtml(s.demand)}</p>
+          <p><strong>Pricing:</strong> ${escapeHtml(s.pricing)}</p>
+          <p class="muted">${escapeHtml(s.notes)}</p>
+        </div>`
+    )
+    .join("");
+  const list = (items) => `<ul class="overview-list">${items.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>`;
+  const sources = p.sources
+    .map((s) => `<li><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a></li>`)
+    .join("");
+
+  return `
+    <div class="overview">
+      <p class="overview-coverage">${escapeHtml(p.coverage)}</p>
+      <div class="stat-grid">${stats}</div>
+
+      <h3 class="overview-h">Why groups go</h3>
+      ${list(p.highlights)}
+      <p class="overview-note">${escapeHtml(p.marketNotes)}</p>
+
+      <h3 class="overview-h">Pick your area</h3>
+      <div class="zone-grid">${zones}</div>
+
+      <h3 class="overview-h">Who's there</h3>
+      ${list(p.crowd)}
+
+      <h3 class="overview-h">Getting there</h3>
+      <div class="airport-list">${airports}</div>
+      <p class="overview-note">${escapeHtml(p.driveMarket)}</p>
+
+      <h3 class="overview-h">When to go</h3>
+      <div class="season-grid">${seasons}</div>
+
+      <details class="overview-sources">
+        <summary>Sources</summary>
+        <ul>${sources}</ul>
+        <p class="muted">Drive times to alternate airports are approximate.</p>
+      </details>
+    </div>
+  `;
 }
 
 async function loadCourses(destSlug) {

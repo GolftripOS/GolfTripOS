@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GolfTripOS — AI Assistant Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="phone">
+    <header class="app-header">
+      <span class="logo">⛳ GolfTripOS</span>
+      <span class="badge">Assistant · Prototype</span>
+    </header>
+
+    <!-- SCREEN 1: Assistant Prompt (structured input) -->
+    <main id="screen-prompt" class="screen">
+      <h1>Plan with AI</h1>
+      <p class="subtitle">Structured prompt · single-region scope (W6)</p>
+
+      <form id="plan-form">
+        <label>
+          Region
+          <select id="region" required>
+            <option value="" disabled selected>Select one region…</option>
+          </select>
+        </label>
+
+        <div class="row">
+          <label>
+            Start date
+            <input type="date" id="startDate" required />
+          </label>
+          <label>
+            End date
+            <input type="date" id="endDate" required />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            Group size
+            <input type="number" id="groupSize" min="2" max="32" value="8" required />
+          </label>
+          <label>
+            Budget
+            <select id="budgetTier" required>
+              <option value="Budget">Budget ($)</option>
+              <option value="Mid-range" selected>Mid-range ($$)</option>
+              <option value="Premium">Premium ($$$)</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Notes for the assistant (optional)
+          <textarea id="preferences" rows="2" placeholder="e.g. prefer walkable courses, one non-golf day"></textarea>
+        </label>
+
+        <button type="submit" id="generate-btn" class="primary">Generate Itinerary</button>
+        <p id="prompt-error" class="error" hidden></p>
+      </form>
+    </main>
+
+    <!-- SCREEN 2: Draft Itinerary -->
+    <main id="screen-draft" class="screen" hidden>
+      <button class="back" id="back-btn">← Assistant</button>
+      <h1 id="draft-title"></h1>
+      <p class="subtitle" id="draft-region"></p>
+      <p class="summary" id="draft-summary"></p>
+
+      <div id="days"></div>
+
+      <p class="budget-fit" id="budget-fit"></p>
+
+      <div id="alternates-wrap" hidden>
+        <h3>Alternates to try on regenerate</h3>
+        <ul id="alternates"></ul>
+      </div>
+
+      <div class="draft-actions">
+        <button id="regenerate-btn" class="secondary">Regenerate</button>
+        <button id="accept-btn" class="primary">Accept &amp; Add to Trip</button>
+      </div>
+      <p class="disclaimer">Draft only — nothing is added to a real trip until you accept. (Trip Hub isn't wired up in this prototype.)</p>
+    </main>
+
+    <!-- Loading overlay -->
+    <div id="loading" class="loading" hidden>
+      <div class="spinner"></div>
+      <p>Drafting your itinerary…</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
